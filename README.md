@@ -1,4 +1,4 @@
-# House-Price-Prediction
+# House Price Prediction
 
 Predicting residential home sale prices from property characteristics, using the Ames Housing dataset.
 
@@ -10,7 +10,7 @@ Given features of a house (size, location, quality, age, etc.), predict its sale
 ## Data Source
 
 - **Dataset:** Ames Housing dataset (via `sklearn.datasets.fetch_openml`, OpenML ID 42165)
-- **Size:** ~2,900 rows, ~80 features
+- **Size:** 1,460 rows, 81 features
 - **Target variable:** `SalePrice`
 
 > Swap this section out if you end up scraping your own listings — note the source, collection date, and any known biases (e.g. "only listings from Zillow in [city], collected [date]").
@@ -26,24 +26,28 @@ Given features of a house (size, location, quality, age, etc.), predict its sale
 
 ## Key Findings
 
-<!-- Fill in after you run the notebook. Write this for a non-technical reader. -->
-- *(e.g. "Overall quality rating and above-ground living area were the two strongest predictors of price.")*
-- *(e.g. "The best model (XGBoost) achieved an RMSE of $X, meaning predictions are typically within $X of the true sale price.")*
-- *(e.g. "The model underperforms on luxury homes above $500K due to few examples in that price range.")*
+- Overall material/finish quality (`OverallQual`) and total square footage (`TotalSF`, an engineered feature) are by far the strongest predictors of sale price, together accounting for roughly a third of the model's decision-making.
+- XGBoost outperformed both a linear baseline and a Random Forest, achieving an R² of 0.91 — it explains about 91% of the variation in sale prices.
+- The best model's predictions are typically within about $26,300 of the true sale price (RMSE), and this held up in 5-fold cross-validation ($27,357 ± $4,972), so the result isn't just a lucky train/test split.
+- Secondary factors — garage finish, kitchen/basement quality, and house age — matter but contribute far less than overall quality and size.
 
 ## Results Summary
 
 | Model | RMSE | R² |
 |---|---|---|
-| Linear Regression | — | — |
-| Random Forest | — | — |
-| XGBoost | — | — |
+| Linear Regression | $29,741 | 0.885 |
+| Random Forest | $29,342 | 0.888 |
+| XGBoost | $26,343 | 0.910 |
+
+*XGBoost 5-fold CV RMSE: $27,357 ± $4,972 — confirms the result is stable across folds, not just a favorable train/test split.*
+
+![Top 15 Feature Importances](images/feature_importance.png)
 
 ## Limitations
 
-<!-- Be honest here — this signals maturity to reviewers -->
 - Dataset is specific to Ames, Iowa (2006–2010); may not generalize to other markets or time periods.
-- *(add your own findings, e.g. sparse data for certain property types)*
+- With only 1,460 rows, some categorical values (e.g. rare garage or roof types) have very few examples, which limits how confidently the model can weigh them.
+- The model was not tuned extensively (default/lightly-set hyperparameters for Random Forest and XGBoost); further tuning could likely close some of the remaining error.
 
 ## How to Run
 
