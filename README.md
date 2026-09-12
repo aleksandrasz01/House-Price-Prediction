@@ -41,7 +41,8 @@ Given features of a house (size, location, quality, age, etc.), predict its sale
 
 *XGBoost 5-fold CV RMSE: $27,357 ± $4,972 — confirms the result is stable across folds, not just a favorable train/test split.*
 
-![Top 15 Feature Importances](images/feature_importance.png)
+<img width="790" height="590" alt="Unknown" src="https://github.com/user-attachments/assets/0b7f2fd9-67bb-4146-8ac1-500f1f47774d" />
+
 
 ## Limitations
 
